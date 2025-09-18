@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CalendarIcon, ArrowLeft, Upload, DollarSign, Hash } from "lucide-react";
+import { CalendarIcon, ArrowLeft, Upload, DollarSign, Hash, FileText, TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCategories } from "@/hooks/useCategories";
 import { useClients } from "@/hooks/useClients";
@@ -126,15 +126,18 @@ export const NovaTransacao = () => {
 
         {/* Main Card */}
         <div className="bg-white rounded-lg shadow-sm">
-          {/* Header with green background */}
-          <div className="bg-green-500 text-white px-6 py-4 rounded-t-lg">
-            <h2 className="text-lg font-medium">Nova Transação</h2>
+          {/* Header without background */}
+          <div className="px-6 py-4 border-b border-gray-200">
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-green-500" />
+              <h2 className="text-lg font-medium text-gray-800">Nova Transação</h2>
+            </div>
           </div>
 
           <div className="p-6">
             {/* Dados Principais */}
             <div className="mb-6">
-              <h3 className="text-sm font-medium text-orange-600 mb-4">Dados Principais</h3>
+              <h3 className="text-sm font-bold text-black mb-4">Dados Principais</h3>
               
               {/* Transaction Type Buttons */}
               <div className="flex gap-2 mb-6">
@@ -144,14 +147,16 @@ export const NovaTransacao = () => {
                   className={`flex-1 ${transactionType === "receita" ? "bg-green-500 hover:bg-green-600 text-white" : "text-gray-600 border-gray-300"}`}
                   onClick={() => setTransactionType("receita")}
                 >
+                  <TrendingUp className="h-4 w-4 mr-2 text-white" />
                   Receita
                 </Button>
                 <Button
                   type="button"
                   variant={transactionType === "despesa" ? "default" : "outline"}
-                  className={`flex-1 ${transactionType === "despesa" ? "bg-red-500 hover:bg-red-600 text-white" : "text-gray-600 border-gray-300"}`}
+                  className={`flex-1 font-bold ${transactionType === "despesa" ? "bg-red-500 hover:bg-red-600 text-white" : "text-gray-600 border-gray-300"}`}
                   onClick={() => setTransactionType("despesa")}
                 >
+                  <TrendingDown className="h-4 w-4 mr-2 text-white" />
                   Despesa
                 </Button>
               </div>
