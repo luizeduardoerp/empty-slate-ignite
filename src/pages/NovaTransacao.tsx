@@ -313,63 +313,6 @@ export const NovaTransacao = () => {
                 </div>
               </div>
 
-              {/* Three Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                {/* Valor */}
-                <div>
-                  <div className="bg-orange-100 border border-orange-200 rounded-lg p-4">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <DollarSign className="h-5 w-5 text-gray-600" />
-                      </div>
-                      <Input
-                        placeholder="0,00"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        className="text-center text-lg font-bold border-none bg-transparent shadow-none focus-visible:ring-0 p-0 h-auto"
-                      />
-                      <div className="text-xs text-gray-600 mt-2 uppercase tracking-wide">Valor</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* QTD */}
-                <div>
-                  <div className="bg-orange-100 border border-orange-200 rounded-lg p-4">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <Hash className="h-5 w-5 text-gray-600" />
-                      </div>
-                      <Input
-                        placeholder="1"
-                        value={installments}
-                        onChange={(e) => setInstallments(e.target.value)}
-                        className="text-center text-lg font-bold border-none bg-transparent shadow-none focus-visible:ring-0 p-0 h-auto"
-                      />
-                      <div className="text-xs text-gray-600 mt-2 uppercase tracking-wide">Qtd</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Parcelas */}
-                <div>
-                  <div className="bg-orange-100 border border-orange-200 rounded-lg p-4">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <Hash className="h-5 w-5 text-gray-600" />
-                      </div>
-                      <Input
-                        placeholder="1"
-                        value="1"
-                        className="text-center text-lg font-bold border-none bg-transparent shadow-none focus-visible:ring-0 p-0 h-auto"
-                        readOnly
-                      />
-                      <div className="text-xs text-gray-600 mt-2 uppercase tracking-wide">Parcelas</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               {/* Category and Client Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
