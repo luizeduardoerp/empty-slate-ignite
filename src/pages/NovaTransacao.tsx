@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CalendarIcon, ArrowLeft, Upload, DollarSign, Hash, FileText, TrendingUp, TrendingDown } from "lucide-react";
+import { CalendarIcon, ArrowLeft, Upload, DollarSign, Hash, FileText, TrendingUp, TrendingDown, Send, Banknote, CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCategories } from "@/hooks/useCategories";
 import { useClients } from "@/hooks/useClients";
@@ -163,19 +163,154 @@ export const NovaTransacao = () => {
 
               {/* Payment Method */}
               <div className="mb-4">
-                <Label className="text-sm text-gray-700 mb-2 block">Forma de Pagamento *</Label>
-                <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {getPaymentMethodOptions().map(option => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Label className="text-sm text-gray-700 mb-2 block">
+                  {transactionType === "receita" ? "Forma de Recebimento *" : "Forma de Pagamento *"}
+                </Label>
+                
+                {/* Payment Method Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {transactionType === "receita" ? (
+                    <>
+                      {/* Zelle */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "zelle" 
+                            ? "border-purple-500 bg-purple-50" 
+                            : "border-gray-200 hover:border-purple-300"
+                        }`}
+                        onClick={() => setPaymentMethod("zelle")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-2">
+                            <span className="text-white font-bold text-xl">Z</span>
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Zelle</span>
+                        </div>
+                      </div>
+
+                      {/* Electronic Transfer */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "electronic_transfer" 
+                            ? "border-blue-500 bg-blue-50" 
+                            : "border-gray-200 hover:border-blue-300"
+                        }`}
+                        onClick={() => setPaymentMethod("electronic_transfer")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+                            <Send className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Electronic Transfer</span>
+                        </div>
+                      </div>
+
+                      {/* Cash */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "cash" 
+                            ? "border-green-500 bg-green-50" 
+                            : "border-gray-200 hover:border-green-300"
+                        }`}
+                        onClick={() => setPaymentMethod("cash")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-2">
+                            <Banknote className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Cash</span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Zelle */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "zelle" 
+                            ? "border-purple-500 bg-purple-50" 
+                            : "border-gray-200 hover:border-purple-300"
+                        }`}
+                        onClick={() => setPaymentMethod("zelle")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-2">
+                            <span className="text-white font-bold text-xl">Z</span>
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Zelle</span>
+                        </div>
+                      </div>
+
+                      {/* Electronic Transfer */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "electronic_transfer" 
+                            ? "border-blue-500 bg-blue-50" 
+                            : "border-gray-200 hover:border-blue-300"
+                        }`}
+                        onClick={() => setPaymentMethod("electronic_transfer")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+                            <Send className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Electronic Transfer</span>
+                        </div>
+                      </div>
+
+                      {/* Cash */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "cash" 
+                            ? "border-green-500 bg-green-50" 
+                            : "border-gray-200 hover:border-green-300"
+                        }`}
+                        onClick={() => setPaymentMethod("cash")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-2">
+                            <Banknote className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Cash</span>
+                        </div>
+                      </div>
+
+                      {/* Debit Card */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "debit_card" 
+                            ? "border-red-500 bg-red-50" 
+                            : "border-gray-200 hover:border-red-300"
+                        }`}
+                        onClick={() => setPaymentMethod("debit_card")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-2">
+                            <CreditCard className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Debit Card</span>
+                        </div>
+                      </div>
+
+                      {/* Credit Card */}
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                          paymentMethod === "credit_card" 
+                            ? "border-orange-500 bg-orange-50" 
+                            : "border-gray-200 hover:border-orange-300"
+                        }`}
+                        onClick={() => setPaymentMethod("credit_card")}
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-2">
+                            <CreditCard className="h-6 w-6 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Credit Card</span>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Three Column Layout */}
@@ -313,10 +448,12 @@ export const NovaTransacao = () => {
                     />
                   </div>
                   <div>
-                    <Label className="text-sm text-gray-700 mb-2 block">Pagamento e Recebimento</Label>
+                    <Label className="text-sm text-gray-700 mb-2 block">
+                      {transactionType === "receita" ? "Forma de Recebimento" : "Forma de Pagamento"}
+                    </Label>
                     <Select value={paymentMethod} onValueChange={setPaymentMethod}>
                       <SelectTrigger>
-                        <SelectValue placeholder="1020.1 - Caixa Econômica Federal - Ag. 0345 - C onta: 52519" />
+                        <SelectValue placeholder="Selecione forma de pagamento..." />
                       </SelectTrigger>
                       <SelectContent>
                         {getPaymentMethodOptions().map(option => (
