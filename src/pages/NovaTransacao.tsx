@@ -173,52 +173,52 @@ export const NovaTransacao = () => {
                     <>
                       {/* Zelle */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-purple-600 text-white ${
                           paymentMethod === "zelle" 
-                            ? "border-purple-500 bg-purple-50" 
-                            : "border-gray-200 hover:border-purple-300"
+                            ? "border-purple-700 ring-2 ring-purple-300" 
+                            : "border-purple-600 hover:border-purple-700"
                         }`}
                         onClick={() => setPaymentMethod("zelle")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <span className="text-white font-bold text-xl">Z</span>
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Zelle</span>
+                          <span className="text-sm font-medium text-white">Zelle</span>
                         </div>
                       </div>
 
                       {/* Electronic Transfer */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-blue-600 text-white ${
                           paymentMethod === "electronic_transfer" 
-                            ? "border-blue-500 bg-blue-50" 
-                            : "border-gray-200 hover:border-blue-300"
+                            ? "border-blue-700 ring-2 ring-blue-300" 
+                            : "border-blue-600 hover:border-blue-700"
                         }`}
                         onClick={() => setPaymentMethod("electronic_transfer")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <Send className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Electronic Transfer</span>
+                          <span className="text-sm font-medium text-white">Electronic Transfer</span>
                         </div>
                       </div>
 
                       {/* Cash */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-green-600 text-white ${
                           paymentMethod === "cash" 
-                            ? "border-green-500 bg-green-50" 
-                            : "border-gray-200 hover:border-green-300"
+                            ? "border-green-700 ring-2 ring-green-300" 
+                            : "border-green-600 hover:border-green-700"
                         }`}
                         onClick={() => setPaymentMethod("cash")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <Banknote className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Cash</span>
+                          <span className="text-sm font-medium text-white">Cash</span>
                         </div>
                       </div>
                     </>
@@ -226,86 +226,86 @@ export const NovaTransacao = () => {
                     <>
                       {/* Zelle */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-purple-600 text-white ${
                           paymentMethod === "zelle" 
-                            ? "border-purple-500 bg-purple-50" 
-                            : "border-gray-200 hover:border-purple-300"
+                            ? "border-purple-700 ring-2 ring-purple-300" 
+                            : "border-purple-600 hover:border-purple-700"
                         }`}
                         onClick={() => setPaymentMethod("zelle")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <span className="text-white font-bold text-xl">Z</span>
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Zelle</span>
+                          <span className="text-sm font-medium text-white">Zelle</span>
                         </div>
                       </div>
 
                       {/* Electronic Transfer */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-blue-600 text-white ${
                           paymentMethod === "electronic_transfer" 
-                            ? "border-blue-500 bg-blue-50" 
-                            : "border-gray-200 hover:border-blue-300"
+                            ? "border-blue-700 ring-2 ring-blue-300" 
+                            : "border-blue-600 hover:border-blue-700"
                         }`}
                         onClick={() => setPaymentMethod("electronic_transfer")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <Send className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Electronic Transfer</span>
+                          <span className="text-sm font-medium text-white">Electronic Transfer</span>
                         </div>
                       </div>
 
                       {/* Cash */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-green-600 text-white ${
                           paymentMethod === "cash" 
-                            ? "border-green-500 bg-green-50" 
-                            : "border-gray-200 hover:border-green-300"
+                            ? "border-green-700 ring-2 ring-green-300" 
+                            : "border-green-600 hover:border-green-700"
                         }`}
                         onClick={() => setPaymentMethod("cash")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <Banknote className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Cash</span>
+                          <span className="text-sm font-medium text-white">Cash</span>
                         </div>
                       </div>
 
                       {/* Debit Card */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-red-600 text-white ${
                           paymentMethod === "debit_card" 
-                            ? "border-red-500 bg-red-50" 
-                            : "border-gray-200 hover:border-red-300"
+                            ? "border-red-700 ring-2 ring-red-300" 
+                            : "border-red-600 hover:border-red-700"
                         }`}
                         onClick={() => setPaymentMethod("debit_card")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <CreditCard className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Debit Card</span>
+                          <span className="text-sm font-medium text-white">Debit Card</span>
                         </div>
                       </div>
 
                       {/* Credit Card */}
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-orange-600 text-white ${
                           paymentMethod === "credit_card" 
-                            ? "border-orange-500 bg-orange-50" 
-                            : "border-gray-200 hover:border-orange-300"
+                            ? "border-orange-700 ring-2 ring-orange-300" 
+                            : "border-orange-600 hover:border-orange-700"
                         }`}
                         onClick={() => setPaymentMethod("credit_card")}
                       >
                         <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-2">
+                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-2">
                             <CreditCard className="h-6 w-6 text-white" />
                           </div>
-                          <span className="text-sm font-medium text-gray-700">Credit Card</span>
+                          <span className="text-sm font-medium text-white">Credit Card</span>
                         </div>
                       </div>
                     </>
