@@ -410,7 +410,10 @@ export const NovaTransacao = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className={cn(
+                  "grid gap-4",
+                  transactionType === "receita" ? "grid-cols-1" : "grid-cols-1 md:grid-cols-3"
+                )}>
                   <div>
                     <Label className="text-sm text-gray-700 mb-2 block">Data de Registro</Label>
                     <Popover>
@@ -438,59 +441,63 @@ export const NovaTransacao = () => {
                     </Popover>
                   </div>
 
-                  <div>
-                    <Label className="text-sm text-gray-700 mb-2 block">Data de Vencimento</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !paymentDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {paymentDate ? format(paymentDate, "dd/MM/yyyy") : "15/09/2025"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={paymentDate}
-                          onSelect={setPaymentDate}
-                          initialFocus
-                          className="p-3 pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+                  {transactionType === "despesa" && (
+                    <>
+                      <div>
+                        <Label className="text-sm text-gray-700 mb-2 block">Data de Vencimento</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !paymentDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {paymentDate ? format(paymentDate, "dd/MM/yyyy") : "15/09/2025"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={paymentDate}
+                              onSelect={setPaymentDate}
+                              initialFocus
+                              className="p-3 pointer-events-auto"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
 
-                  <div>
-                    <Label className="text-sm text-gray-700 mb-2 block">Data de Pagamento</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !issueDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {issueDate ? format(issueDate, "dd/MM/yyyy") : "dd/mm/aaaa"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={issueDate}
-                          onSelect={setIssueDate}
-                          initialFocus
-                          className="p-3 pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+                      <div>
+                        <Label className="text-sm text-gray-700 mb-2 block">Data de Pagamento</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                "w-full justify-start text-left font-normal",
+                                !issueDate && "text-muted-foreground"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {issueDate ? format(issueDate, "dd/MM/yyyy") : "dd/mm/aaaa"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={issueDate}
+                              onSelect={setIssueDate}
+                              initialFocus
+                              className="p-3 pointer-events-auto"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
