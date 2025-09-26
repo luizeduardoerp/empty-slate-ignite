@@ -25,6 +25,7 @@ import { CalendarIcon, ArrowLeft, Upload, DollarSign, Hash, FileText, TrendingUp
 import { cn } from "@/lib/utils";
 import { useCategories } from "@/hooks/useCategories";
 import { useClients } from "@/hooks/useClients";
+import { useBankAccounts } from "@/hooks/useBankAccounts";
 import { getCategoryTranslation } from "@/utils/categoryTranslations";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -36,6 +37,7 @@ export const NovaTransacao = () => {
   // Form states
   const [transactionType, setTransactionType] = useState("receita");
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [selectedBankAccount, setSelectedBankAccount] = useState("");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [client, setClient] = useState("");
@@ -50,6 +52,7 @@ export const NovaTransacao = () => {
   // Hooks
   const { categories } = useCategories();
   const { clients } = useClients();
+  const { accounts: bankAccounts } = useBankAccounts();
 
   const getPaymentMethodOptions = () => {
     const paymentMethodTranslations = {
@@ -391,17 +394,15 @@ export const NovaTransacao = () => {
                     />
                   </div>
                   <div>
-                    <Label className="text-sm text-gray-700 mb-2 block">
-                      {transactionType === "receita" ? "Forma de Recebimento" : "Forma de Pagamento"}
-                    </Label>
-                    <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                    <Label className="text-sm text-gray-700 mb-2 block">Contas bancárias</Label>
+                    <Select value={selectedBankAccount} onValueChange={setSelectedBankAccount}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione forma de pagamento..." />
+                        <SelectValue placeholder="Selecione conta bancária..." />
                       </SelectTrigger>
                       <SelectContent>
-                        {getPaymentMethodOptions().map(option => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
+                        {bankAccounts.map(account => (
+                          <SelectItem key={account.id} value={account.id}>
+                            {account.nome} - {account.banco}
                           </SelectItem>
                         ))}
                       </SelectContent>
