@@ -36,7 +36,7 @@ const resources = {
       // Categories
       "categories.title": "Categorias",
       "categories.subtitle": "Gerencie as categorias de receitas e despesas",
-      "categories.revenues": "Receitas",
+      "categories.revenues": "Income",
       "categories.expenses": "Despesas",
       "categories.newCategory": "Nova Categoria",
       "categories.newRevenueCategory": "Nova Categoria de Receita",
