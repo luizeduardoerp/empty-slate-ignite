@@ -39,7 +39,7 @@ export const NovaTransacao = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [selectedBankAccount, setSelectedBankAccount] = useState("");
   const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
+  
   const [client, setClient] = useState("");
   const [value, setValue] = useState("");
   const [installments, setInstallments] = useState("1");
@@ -316,13 +316,13 @@ export const NovaTransacao = () => {
                 </div>
               </div>
 
-              {/* Category and Client Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              {/* Category Row */}
+              <div className="grid grid-cols-1 gap-4 mb-6">
                 <div>
                   <Label className="text-sm text-gray-700 mb-2 block">Categoria</Label>
                   <Select value={category} onValueChange={setCategory}>
                     <SelectTrigger>
-                      <SelectValue placeholder="C.01 - Receita de Vendas e Serviços" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {categories
@@ -332,18 +332,6 @@ export const NovaTransacao = () => {
                             {getCategoryTranslation(cat.nome, i18n.language)}
                           </SelectItem>
                         ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label className="text-sm text-gray-700 mb-2 block">Subcategoria</Label>
-                  <Select value={subcategory} onValueChange={setSubcategory}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="C.01.001 - Receita de Serviços" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="geral">C.01.001 - Receita de Serviços</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
