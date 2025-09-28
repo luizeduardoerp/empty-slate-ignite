@@ -38,8 +38,12 @@ export const ContasBancarias = () => {
   const [formData, setFormData] = useState({
     nome: "",
     banco: "",
+    agencia: "",
+    operacao: "",
+    numeroConta: "",
     tipo: "",
-    zelle: "",
+    chavePix: "",
+    cnpj: "",
     status: "ativa" as 'ativa' | 'inativa'
   });
   const [editingAccount, setEditingAccount] = useState<any>(null);
@@ -67,17 +71,21 @@ export const ContasBancarias = () => {
   ];
 
   const handleAddAccount = async () => {
-    if (formData.nome && formData.banco && formData.tipo && formData.zelle && !isSubmitting) {
+    if (formData.nome && formData.banco && formData.tipo && !isSubmitting) {
       setIsSubmitting(true);
       try {
         await addAccount({
           nome: formData.nome,
           banco: formData.banco,
           tipo: formData.tipo,
-          zelle: formData.zelle,
+          agencia: formData.agencia,
+          operacao: formData.operacao,
+          numeroConta: formData.numeroConta,
+          chavePix: formData.chavePix,
+          cnpj: formData.cnpj,
           status: formData.status
         });
-        setFormData({ nome: "", banco: "", tipo: "", zelle: "", status: "ativa" });
+        setFormData({ nome: "", banco: "", agencia: "", operacao: "", numeroConta: "", tipo: "", chavePix: "", cnpj: "", status: "ativa" });
         setIsDialogOpen(false);
         toast({
           title: "Sucesso",
@@ -100,25 +108,33 @@ export const ContasBancarias = () => {
     setFormData({
       nome: account.nome,
       banco: account.banco,
+      agencia: account.agencia || "",
+      operacao: account.operacao || "",
+      numeroConta: account.numeroConta || "",
       tipo: account.tipo,
-      zelle: account.zelle,
+      chavePix: account.chavePix || "",
+      cnpj: account.cnpj || "",
       status: account.status
     });
     setIsDialogOpen(true);
   };
 
   const handleSaveEdit = async () => {
-    if (editingAccount && formData.nome && formData.banco && formData.tipo && formData.zelle && !isSubmitting) {
+    if (editingAccount && formData.nome && formData.banco && formData.tipo && !isSubmitting) {
       setIsSubmitting(true);
       try {
         await updateAccount(editingAccount.id, {
           nome: formData.nome,
           banco: formData.banco,
           tipo: formData.tipo,
-          zelle: formData.zelle,
+          agencia: formData.agencia,
+          operacao: formData.operacao,
+          numeroConta: formData.numeroConta,
+          chavePix: formData.chavePix,
+          cnpj: formData.cnpj,
           status: formData.status
         });
-        setFormData({ nome: "", banco: "", tipo: "", zelle: "", status: "ativa" });
+        setFormData({ nome: "", banco: "", agencia: "", operacao: "", numeroConta: "", tipo: "", chavePix: "", cnpj: "", status: "ativa" });
         setEditingAccount(null);
         setIsDialogOpen(false);
         toast({
@@ -160,11 +176,11 @@ export const ContasBancarias = () => {
 
   const handleCancel = () => {
     setEditingAccount(null);
-    setFormData({ nome: "", banco: "", tipo: "", zelle: "", status: "ativa" });
+    setFormData({ nome: "", banco: "", agencia: "", operacao: "", numeroConta: "", tipo: "", chavePix: "", cnpj: "", status: "ativa" });
     setIsDialogOpen(false);
   };
 
-  const isFormValid = formData.nome && formData.banco && formData.tipo && formData.zelle;
+  const isFormValid = formData.nome && formData.banco && formData.tipo;
 
   if (loading) {
     return (
@@ -189,89 +205,179 @@ export const ContasBancarias = () => {
               Nova Conta Bancária
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
-                {editingAccount ? "Editar Conta Bancária" : "Nova Conta Bancária"}
-              </DialogTitle>
+              <DialogTitle className="text-xl font-semibold">Nova Conta Bancária</DialogTitle>
+              <p className="text-sm text-muted-foreground">Preencha os dados para cadastrar uma nova conta bancária.</p>
             </DialogHeader>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label>Nome</Label>
-                <Input
-                  placeholder="Digite o nome da conta..."
-                  value={formData.nome}
-                  onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                  disabled={isSubmitting}
-                />
+            
+            <div className="space-y-6">
+              {/* Informações Básicas */}
+              <div className="space-y-4">
+                <div className="border-b pb-2">
+                  <h3 className="font-medium text-sm">Informações Básicas</h3>
+                  <p className="text-xs text-muted-foreground">Dados principais da conta bancária (compartilhada entre todos os usuários)</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label className="text-sm">Nome da Conta</Label>
+                  <Input
+                    placeholder="Ex: Conta Principal"
+                    value={formData.nome}
+                    onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                    disabled={isSubmitting}
+                    className="h-10"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label className="text-sm">Banco</Label>
+                  <Select 
+                    value={formData.banco} 
+                    onValueChange={(value) => setFormData({ ...formData, banco: value })}
+                    disabled={isSubmitting}
+                  >
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Selecione um banco" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {banks.map((bank) => (
+                        <SelectItem key={bank} value={bank}>
+                          {bank}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Banco</Label>
-                <Select 
-                  value={formData.banco} 
-                  onValueChange={(value) => setFormData({ ...formData, banco: value })}
-                  disabled={isSubmitting}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o banco..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {banks.map((bank) => (
-                      <SelectItem key={bank} value={bank}>
-                        {bank}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              {/* Dados Bancários */}
+              <div className="space-y-4">
+                <div className="border-b pb-2">
+                  <h3 className="font-medium text-sm">Dados Bancários</h3>
+                  <p className="text-xs text-muted-foreground">Informações específicas da conta</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-sm">Agência</Label>
+                    <Input
+                      placeholder="0001"
+                      value={formData.agencia}
+                      onChange={(e) => setFormData({ ...formData, agencia: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-10"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label className="text-sm">Operação</Label>
+                    <Input
+                      placeholder="013"
+                      value={formData.operacao}
+                      onChange={(e) => setFormData({ ...formData, operacao: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-10"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-sm">Número da Conta</Label>
+                    <Input
+                      placeholder="12345-6"
+                      value={formData.numeroConta}
+                      onChange={(e) => setFormData({ ...formData, numeroConta: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-10"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label className="text-sm">Tipo de Conta</Label>
+                    <Select 
+                      value={formData.tipo} 
+                      onValueChange={(value) => setFormData({ ...formData, tipo: value })}
+                      disabled={isSubmitting}
+                    >
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Selecione o tipo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {accountTypes.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Tipo</Label>
-                <Select 
-                  value={formData.tipo} 
-                  onValueChange={(value) => setFormData({ ...formData, tipo: value })}
-                  disabled={isSubmitting}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o tipo..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {accountTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+
+              {/* Informações Adicionais */}
+              <div className="space-y-4">
+                <div className="border-b pb-2">
+                  <h3 className="font-medium text-sm">Informações Adicionais</h3>
+                  <p className="text-xs text-muted-foreground">PIX e CNPJ da conta</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-sm">Chave PIX</Label>
+                    <Input
+                      placeholder="CPF, telefone, email ou chave aleatória"
+                      value={formData.chavePix}
+                      onChange={(e) => setFormData({ ...formData, chavePix: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-10"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label className="text-sm">CNPJ</Label>
+                    <Input
+                      placeholder="00.000.000/0000-00"
+                      value={formData.cnpj}
+                      onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-10"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Zelle</Label>
-                <Input
-                  placeholder="Email ou telefone para Zelle..."
-                  value={formData.zelle}
-                  onChange={(e) => setFormData({ ...formData, zelle: e.target.value })}
-                  disabled={isSubmitting}
-                />
+
+              {/* Status da Conta */}
+              <div className="space-y-4">
+                <div className="border-b pb-2">
+                  <h3 className="font-medium text-sm">Status da Conta</h3>
+                  <p className="text-xs text-muted-foreground">Define se a conta está ativa ou inativa</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label className="text-sm">Status</Label>
+                  <Select 
+                    value={formData.status} 
+                    onValueChange={(value: 'ativa' | 'inativa') => setFormData({ ...formData, status: value })}
+                    disabled={isSubmitting}
+                  >
+                    <SelectTrigger className="h-10">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ativa">Ativa</SelectItem>
+                      <SelectItem value="inativa">Inativa</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label>Status</Label>
-                <Select 
-                  value={formData.status} 
-                  onValueChange={(value: 'ativa' | 'inativa') => setFormData({ ...formData, status: value })}
-                  disabled={isSubmitting}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="ativa">Ativa</SelectItem>
-                    <SelectItem value="inativa">Inativa</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex gap-2 pt-4">
+
+              {/* Botão de Salvar */}
+              <div className="pt-4">
                 <Button 
                   onClick={editingAccount ? handleSaveEdit : handleAddAccount}
-                  className="flex-1"
+                  className="w-full h-11"
                   disabled={!isFormValid || isSubmitting}
                 >
                   {isSubmitting ? (
@@ -280,16 +386,8 @@ export const ContasBancarias = () => {
                       Salvando...
                     </>
                   ) : (
-                    "Salvar Conta"
+                    "Salvar Conta Bancária"
                   )}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={handleCancel}
-                  className="flex-1"
-                  disabled={isSubmitting}
-                >
-                  Cancelar
                 </Button>
               </div>
             </div>

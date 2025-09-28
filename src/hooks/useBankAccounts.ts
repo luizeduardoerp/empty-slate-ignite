@@ -7,7 +7,11 @@ interface BankAccount {
   nome: string;
   banco: string;
   tipo: string;
-  zelle: string;
+  agencia?: string;
+  operacao?: string;
+  numeroConta?: string;
+  chavePix?: string;
+  cnpj?: string;
   status: 'ativa' | 'inativa';
   created_at: string;
 }
