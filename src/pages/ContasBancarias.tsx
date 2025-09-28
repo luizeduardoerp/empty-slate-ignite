@@ -307,9 +307,8 @@ export const ContasBancarias = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Nome</TableHead>
-                <TableHead>Banco</TableHead>
+                <TableHead>Bank</TableHead>
                 <TableHead>Tipo</TableHead>
-                <TableHead>Zelle</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Ações</TableHead>
               </TableRow>
@@ -320,7 +319,6 @@ export const ContasBancarias = () => {
                   <TableCell className="font-medium">{account.nome}</TableCell>
                   <TableCell>{account.banco}</TableCell>
                   <TableCell>{account.tipo}</TableCell>
-                  <TableCell className="text-purple-600 font-medium">{account.zelle}</TableCell>
                   <TableCell>
                     <Badge variant={account.status === "ativa" ? "default" : "secondary"}>
                       {account.status === "ativa" ? "Ativa" : "Inativa"}
@@ -329,20 +327,22 @@ export const ContasBancarias = () => {
                   <TableCell>
                     <div className="flex gap-2">
                       <Button 
-                        variant="outline" 
+                        variant="ghost" 
                         size="sm"
                         onClick={() => handleEditAccount(account)}
                         disabled={isSubmitting}
+                        className="h-8 w-8 p-0 hover:bg-gray-100"
                       >
-                        <Edit className="h-4 w-4" />
+                        <Edit className="h-4 w-4 text-black" />
                       </Button>
                       <Button 
-                        variant="outline" 
+                        variant="ghost" 
                         size="sm"
                         onClick={() => handleDeleteAccount(account.id)}
                         disabled={isSubmitting}
+                        className="h-8 w-8 p-0 hover:bg-red-50"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4 text-red-600" />
                       </Button>
                     </div>
                   </TableCell>
