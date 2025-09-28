@@ -81,47 +81,8 @@ export const useCategories = () => {
     }
   };
 
-  const createDefaultIncomeCategories = async () => {
-    const defaultIncomeCategories = [
-      'Gross Receipts or Sales',
-      '( - ) Returns and allowances',
-      '( - ) Cost of goods sold',
-      'Capital gain net income',
-      'Other income'
-    ];
-
-    try {
-      // Check if any income categories already exist
-      const { data: existingCategories } = await supabase
-        .from('categories')
-        .select('nome')
-        .eq('tipo', 'receita');
-
-      const existingNames = existingCategories?.map(cat => cat.nome) || [];
-      const categoriesToCreate = defaultIncomeCategories.filter(name => !existingNames.includes(name));
-
-      if (categoriesToCreate.length > 0) {
-        const categoryInserts = categoriesToCreate.map(name => ({
-          nome: name,
-          tipo: 'receita' as const
-        }));
-
-        await supabase
-          .from('categories')
-          .insert(categoryInserts);
-      }
-    } catch (err) {
-      console.error('Error creating default income categories:', err);
-    }
-  };
-
   useEffect(() => {
-    const initializeCategories = async () => {
-      await createDefaultIncomeCategories();
-      await fetchCategories();
-    };
-    
-    initializeCategories();
+    fetchCategories();
   }, []);
 
   return {
