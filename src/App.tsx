@@ -12,6 +12,9 @@ import { ContasBancarias } from '@/pages/ContasBancarias';
 import { Transacoes } from '@/pages/Transacoes';
 import { NovaTransacao } from '@/pages/NovaTransacao';
 import { Categorias } from '@/pages/Categorias';
+import { TaxOrganizer } from '@/pages/TaxOrganizer';
+import { RelatorioSemanal } from '@/pages/RelatorioSemanal';
+import { Invoices } from '@/pages/Invoices';
 import NotFound from '@/pages/NotFound';
 import './i18n';
 
@@ -45,6 +48,9 @@ export default function App() {
             <Route path="lancamentos" element={<Transacoes />} />
             <Route path="nova-transacao" element={<NovaTransacao />} />
             <Route path="categorias" element={<Categorias />} />
+            <Route path="tax-organizer" element={<TaxOrganizer />} />
+            <Route path="relatorio-semanal" element={<RelatorioSemanal />} />
+            <Route path="invoices" element={<Invoices />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
