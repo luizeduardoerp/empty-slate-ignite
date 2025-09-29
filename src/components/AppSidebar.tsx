@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Sidebar,
@@ -8,11 +8,9 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -75,6 +73,7 @@ const menuItems = [
 
 export function AppSidebar() {
   const { state } = useSidebar();
+  const navigate = useNavigate();
   const location = useLocation();
   const isCollapsed = state === "collapsed";
   const { t } = useTranslation();
@@ -85,6 +84,12 @@ export function AppSidebar() {
     name: "",
     banco: ""
   });
+
+  // Get current active tab index for each group
+  const getActiveTabIndex = (groupItems: typeof menuItems[0]['items']) => {
+    const activeIndex = groupItems.findIndex(item => item.url === location.pathname);
+    return activeIndex >= 0 ? activeIndex : null;
+  };
 
   const handleAddCompany = () => {
     if (newCompany.name && newCompany.banco) {
@@ -100,12 +105,10 @@ export function AppSidebar() {
         {/* Company Selector */}
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <SidebarMenuButton className="h-16 justify-start px-4">
-                      <div className="flex items-center space-x-3 w-full">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="w-full h-16 justify-start px-4">
+                  <div className="flex items-center space-x-3 w-full">
                         {currentCompany?.logo ? (
                           <img 
                             src={currentCompany.logo} 
@@ -123,10 +126,10 @@ export function AppSidebar() {
                             <ChevronDown className="w-3 h-3 mt-1" />
                           </div>
                         )}
-                      </div>
-                    </SidebarMenuButton>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent 
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
                     align="start" 
                     className="w-64 z-50"
                     side={isCollapsed ? "right" : "bottom"}
@@ -234,43 +237,34 @@ export function AppSidebar() {
                     </Dialog>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </SidebarMenuItem>
-            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {menuItems.map((group) => (
-          <SidebarGroup key={group.group}>
-            {!isCollapsed && (
-              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+        {menuItems.map((group) => {
+          const tabs = group.items.map(item => ({
+            title: item.title,
+            icon: item.icon
+          }));
+
+          return (
+            <SidebarGroup key={group.group}>
+              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 mb-2">
                 {group.group}
               </SidebarGroupLabel>
-            )}
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {group.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink 
-                        to={item.url} 
-                        className={({ isActive }) => 
-                          `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                            isActive 
-                              ? "bg-primary text-primary-foreground font-medium" 
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`
-                        }
-                      >
-                        <item.icon className="h-4 w-4 flex-shrink-0" />
-                        {!isCollapsed && <span className="text-sm">{item.title}</span>}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+              <SidebarGroupContent className="px-2">
+                <ExpandableTabs 
+                  tabs={tabs}
+                  activeColor="text-primary"
+                  onChange={(index) => {
+                    if (index !== null) {
+                      navigate(group.items[index].url);
+                    }
+                  }}
+                />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          );
+        })}
       </SidebarContent>
     </Sidebar>
   );
